@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.aditya.calender.remote.Resource
+import com.aditya.calender.remote.responses.createResponse.CreateResponseModel
 import com.aditya.calender.remote.responses.getResponse.ResponseData
 import com.aditya.calender.remote.responses.getResponse.Task
 import com.aditya.calender.repositories.AppRepo
@@ -21,8 +22,8 @@ class AppViewModel @Inject constructor(val appRepo: AppRepo) : ViewModel() {
         }
     }
 
-    fun storeNewData(task: Task){
-        appRepo.storeTaskToAPI(task)
+    fun storeNewData(createResponseModel: CreateResponseModel){
+        appRepo.storeTaskToAPI(createResponseModel)
     }
 
     fun deleteTaskFromAPI(task_id : Int){

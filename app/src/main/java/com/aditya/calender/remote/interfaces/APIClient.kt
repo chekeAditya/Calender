@@ -1,5 +1,6 @@
 package com.aditya.calender.remote.interfaces
 
+import com.aditya.calender.remote.responses.createResponse.CreateResponseModel
 import com.aditya.calender.remote.responses.getResponse.GetTaskResponse
 import com.aditya.calender.remote.responses.getResponse.ResponseData
 import com.aditya.calender.remote.responses.getResponse.Task
@@ -18,8 +19,8 @@ interface APIClient {
     @POST("storeCalendarTask")
     suspend fun storeResponseToAPI(
         @Header("Authorization") token: String,
-        @Body task: Task
-    ): Task
+        @Body createResponseModel: CreateResponseModel
+    ): CreateResponseModel
 
     @Multipart
     @POST("deleteCalendarTask")

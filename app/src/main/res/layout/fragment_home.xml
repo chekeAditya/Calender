@@ -81,7 +81,7 @@
             android:layout_marginTop="@dimen/dp_10" />
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageView
             android:id="@+id/btnFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,11 +89,11 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/sp_20"
             android:layout_marginTop="@dimen/sp_20"
-
             android:layout_marginEnd="@dimen/sp_20"
             android:layout_marginBottom="@dimen/sp_20"
             android:backgroundTint="@color/purple_500"
-            android:contentDescription="@string/fab_button" />
+            android:contentDescription="@string/fab_button"
+            android:src="@drawable/nextbutton" />
 
     </RelativeLayout>
 </layout>

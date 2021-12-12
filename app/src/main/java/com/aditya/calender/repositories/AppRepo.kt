@@ -5,6 +5,7 @@ import com.aditya.calender.extras.Constants.USER_ID
 import com.aditya.calender.remote.Resource
 import com.aditya.calender.remote.ResponseHandler
 import com.aditya.calender.remote.interfaces.APIClient
+import com.aditya.calender.remote.responses.createResponse.CreateResponseModel
 import com.aditya.calender.remote.responses.getResponse.GetTaskResponse
 import com.aditya.calender.remote.responses.getResponse.ResponseData
 import com.aditya.calender.remote.responses.getResponse.Task
@@ -26,9 +27,9 @@ class AppRepo @Inject constructor(val apiClient: APIClient) {
         }
     }
 
-    fun storeTaskToAPI(task: Task) {
+    fun storeTaskToAPI(createResponseModel: CreateResponseModel) {
         CoroutineScope(IO).launch {
-            apiClient.storeResponseToAPI(TOKEN, task)
+            apiClient.storeResponseToAPI(TOKEN, createResponseModel)
         }
     }
 

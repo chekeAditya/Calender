@@ -15,8 +15,10 @@ import com.aditya.calender.R
 import com.aditya.calender.databinding.FragmentHomeBinding
 import com.aditya.calender.extras.Constants.USER_ID
 import com.aditya.calender.remote.interfaces.OnDateClicked
+import com.aditya.calender.remote.responses.createResponse.CreateResponseModel
+import com.aditya.calender.remote.responses.createResponse.CreateTaskDetails
 import com.aditya.calender.remote.responses.getResponse.Task
-import com.aditya.calender.remote.responses.getResponse.Task
+import com.aditya.calender.remote.responses.getResponse.TaskDetail
 import com.aditya.calender.ui.adapters.AppAdapter
 import com.aditya.calender.viewmodels.AppViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -103,10 +105,9 @@ class HomeFragment : Fragment(), OnDateClicked {
         val title = dialog.etTask.text
         val desc = dialog.etDesciption.text
 
-
         dialog.btnSave.setOnClickListener {
-            val task = Task(date = mdate, description = desc.toString(),title = title.toString())
-            val response = Task(task, USER_ID)
+            val task = CreateTaskDetails(date = mdate, description = desc.toString(),title = title.toString())
+            val response = CreateResponseModel(task, USER_ID)
             viewModel.storeNewData(response)
             dialog.dismiss()
         }

@@ -3,7 +3,7 @@ package com.aditya.calender.remote.responses.createResponse
 
 import com.google.gson.annotations.SerializedName
 
-data class Task(
+data class CreateTaskDetails(
     @SerializedName("date")
     val date: String,
     @SerializedName("description")

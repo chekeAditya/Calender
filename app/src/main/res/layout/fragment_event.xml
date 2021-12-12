@@ -8,10 +8,11 @@
         android:orientation="vertical"
         tools:context=".ui.fragments.EventFragment">
 
-        <EditText
+        <TextView
             android:id="@+id/etSearch"
             style="@style/Edittext_EventFragment"
-            android:hint="Search..." />
+            android:textColor="@color/black"
+            android:text="Events..." />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

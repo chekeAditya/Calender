@@ -28,7 +28,7 @@ class EventAdapter(
         val list = listoftask[position]
         holder.setData(list)
         holder.itemlayoutDetailsBinding.btnDelete.setOnClickListener {
-            onDeleteClicked.onDelete(position,holder.itemlayoutDetailsBinding.task?.user_id!!.toString().toInt())
+            onDeleteClicked.onDelete(position,holder.itemlayoutDetailsBinding.task?.taskId!!.toString().toInt())
         }
     }
 
@@ -43,9 +43,9 @@ class TaskListHolder(
 ) : RecyclerView.ViewHolder(itemlayoutDetailsBinding.root) {
 
     fun setData(task: Task) {
-        itemlayoutDetailsBinding.taskdetails = task.
+        itemlayoutDetailsBinding.taskdetails = task.taskDetail
         itemlayoutDetailsBinding.task = task
-        itemlayoutDetailsBinding.taskidone.setText(task.user_id.toString())
+        itemlayoutDetailsBinding.taskidone.setText(task.taskId.toString())
     }
 
 }
