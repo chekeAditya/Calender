@@ -1,4 +1,4 @@
-package com.aditya.calender.ui
+package com.aditya.calender.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

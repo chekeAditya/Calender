@@ -1,26 +1,32 @@
 package com.aditya.calender.remote.interfaces
 
-import com.aditya.calender.remote.responses.ResponseModel
-import com.aditya.calender.remote.responses.TaskModel
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import com.aditya.calender.remote.responses.createResponse.CreateTaskClass
+import com.aditya.calender.remote.responses.getResponse.GetTaskResponse
+import com.aditya.calender.remote.responses.getResponse.ResponseData
+import com.aditya.calender.remote.responses.getResponse.Task
+import retrofit2.http.*
 
 interface APIClient {
 
-    //http://13.232.92.136:8084/api/storeCalendarTask
-    @POST("storeCalendarTask")
-    suspend fun storeTask(
-        @Header("Authorization") token: String,
-        @Body responseModel: ResponseModel
-    ): ResponseModel
-
 
     //http://13.232.92.136:8084/api/getCalendarTaskList
-    @GET("getCalendarTaskList")
-    suspend fun getTask(
-        @Header("Authorization") token: String
-    ): ResponseModel
+    @POST("getCalendarTaskList")
+    suspend fun getResponseFromAPI(
+        @Body getTaskResponse: GetTaskResponse
+    ): ResponseData
 
+    //http://13.232.92.136:8084/api/storeCalendarTask
+    @POST("storeCalendarTask")
+    suspend fun storeResponseToAPI(
+        @Header("Authorization") token: String,
+        @Body task: Task
+    ): Task
+
+
+    @Multipart
+    @POST("deleteCalendarTask")
+    suspend fun deleteTaskFromAPI(
+        @Part("user_id") user_id: Int,
+        @Part("task_id") task_id: Int,
+    ): ResponseData
 }

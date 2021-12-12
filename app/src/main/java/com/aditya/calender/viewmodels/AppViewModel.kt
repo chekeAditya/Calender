@@ -1,28 +1,33 @@
 package com.aditya.calender.viewmodels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.aditya.calender.remote.Resource
-import com.aditya.calender.remote.responses.ResponseModel
-import com.aditya.calender.remote.responses.TaskModel
+import com.aditya.calender.remote.responses.createResponse.CreateTaskClass
+import com.aditya.calender.remote.responses.getResponse.ResponseData
+import com.aditya.calender.remote.responses.getResponse.Task
 import com.aditya.calender.repositories.AppRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(val appRepo: AppRepo) : ViewModel() {
 
-    fun getTaskFromApi(): LiveData<TaskModel> {
-        return liveData(Dispatchers.IO) {
-            val data = appRepo.getResponseFromAPI()
+    fun getData() : LiveData<Resource<ResponseData>>{
+        return liveData(IO) {
+            val data = appRepo.getResponseFromApi()
+            emit(data)
         }
     }
 
-    fun createTask(responseModel: ResponseModel) {
-        appRepo.createTask(responseModel)
+    fun storeNewData(task: Task){
+        appRepo.storeTaskToAPI(task)
+    }
+
+    fun deleteTaskFromAPI(task_id : Int){
+        appRepo.deleteTaskFromAPI(task_id)
     }
 
 }

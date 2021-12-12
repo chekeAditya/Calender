@@ -1,4 +1,4 @@
-package com.aditya.calender.ui
+package com.aditya.calender.ui.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -9,16 +9,20 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aditya.calender.R
 import com.aditya.calender.databinding.FragmentHomeBinding
+import com.aditya.calender.extras.Constants.USER_ID
 import com.aditya.calender.remote.interfaces.OnDateClicked
-import com.aditya.calender.remote.responses.ResponseModel
-import com.aditya.calender.remote.responses.TaskModel
+import com.aditya.calender.remote.responses.createResponse.CreateTaskClass
+import com.aditya.calender.remote.responses.getResponse.Task
+import com.aditya.calender.remote.responses.getResponse.TaskDetail
 import com.aditya.calender.ui.adapters.AppAdapter
 import com.aditya.calender.viewmodels.AppViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -29,7 +33,7 @@ import java.time.format.DateTimeFormatter
 class HomeFragment : Fragment(), OnDateClicked {
 
     private lateinit var homeFragmentBinding: FragmentHomeBinding
-    lateinit var date: LocalDate
+    lateinit var selectedDate: LocalDate
     private val viewModel: AppViewModel by viewModels()
 
     override fun onCreateView(
@@ -43,19 +47,18 @@ class HomeFragment : Fragment(), OnDateClicked {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        date = LocalDate.now()
+        selectedDate = LocalDate.now()
         setMonthView()
         homeFragmentBinding.btnPrevious.setOnClickListener {
-            date = date.minusMonths(1)
-            setMonthView()
+            previousButtonClicked()
         }
-
         homeFragmentBinding.btnForward.setOnClickListener {
-            date = date.plusMonths(1)
-            setMonthView()
+            nextButtonClicked()
+        }
+        homeFragmentBinding.btnFab.setOnClickListener {
+            fabButtonClicked()
         }
     }
-
 
     private fun monthYearFromDate(date: LocalDate): String {
         val dateFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")
@@ -82,17 +85,44 @@ class HomeFragment : Fragment(), OnDateClicked {
     }
 
     private fun setMonthView() {
-        homeFragmentBinding.monthYearTV.text = monthYearFromDate(date)
-        val daysInMonth: ArrayList<String> = daysInMonthArray(date)
+        homeFragmentBinding.monthYearTV.text = monthYearFromDate(selectedDate)
+        val daysInMonth: ArrayList<String> = daysInMonthArray(selectedDate)
         val adapter = AppAdapter(daysInMonth, this)
         homeFragmentBinding.calendarRecyclerView.layoutManager = GridLayoutManager(context, 7)
         homeFragmentBinding.calendarRecyclerView.adapter = adapter
     }
 
     override fun onDateClicked(position: Int, date: String) {
-        val task = TaskModel("done with the sudat", "Response updated")
-        val responseModel = ResponseModel(task, 1008)
-        viewModel.createTask(responseModel)
+        /** Bottom Sheet function */
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
+        val dialog = BottomSheetDialog(requireActivity())
+        dialog.setContentView(view)
+        dialog.show()
+        val mdate = "$date ${monthYearFromDate(selectedDate)}"
+        dialog.etDate.text = mdate
+        val title = dialog.etTask.text
+        val desc = dialog.etDesciption.text
+        dialog.btnSave.setOnClickListener {
+            val task = TaskDetail(date = mdate, description = desc.toString(),title = title.toString())
+            val response = Task(USER_ID,task)
+            viewModel.storeNewData(response)
+            dialog.dismiss()
+        }
+    }
+
+    private fun previousButtonClicked() {
+        selectedDate = selectedDate.minusMonths(1)
+        setMonthView()
+    }
+
+    private fun nextButtonClicked() {
+        selectedDate = selectedDate.plusMonths(1)
+        setMonthView()
+    }
+
+    fun fabButtonClicked() {
+        Navigation.findNavController(requireView())
+            .navigate(R.id.action_homeFragment_to_eventFragment)
     }
 
 }

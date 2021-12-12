@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="task"
+            type="com.aditya.calender.remote.responses.getResponse.Task" />
+
+        <variable
+            name="onClick"
+            type="com.aditya.calender.remote.interfaces.OnDeleteClicked" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/tv_taskId"
+                android:visibility="gone"
+                style="@style/Text_ItemlayoutHeading"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_5"
+                />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/Text_ItemlayoutHeading"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_5" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <TextView
+                    android:id="@+id/tvTi"
+                    style="@style/Text_ItemlayoutHeading"
+                    android:text="Title :-" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/Text_ItemlayoutHeading"
+                    android:layout_marginStart="@dimen/dp_10" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_title"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <TextView
+                    style="@style/Text_ItemlayoutHeading"
+                    android:text="Description :-" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tvDescription"
+                    style="@style/Text_ItemlayoutHeading"
+                    android:layout_marginStart="@dimen/dp_10" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_date"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ic_baseline_delete_24" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
