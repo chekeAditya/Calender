@@ -43,7 +43,7 @@ class TaskListHolder(
 ) : RecyclerView.ViewHolder(itemlayoutDetailsBinding.root) {
 
     fun setData(task: Task) {
-        itemlayoutDetailsBinding.taskdetails = task.task
+        itemlayoutDetailsBinding.taskdetails = task.
         itemlayoutDetailsBinding.task = task
         itemlayoutDetailsBinding.taskidone.setText(task.user_id.toString())
     }
