@@ -1,14 +1,13 @@
 package com.aditya.calender.remote.responses.createResponse
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+
 import com.google.gson.annotations.SerializedName
 
-class CreateTaskClass(
+data class Task(
     @SerializedName("date")
-    var date: String,
+    val date: String,
     @SerializedName("description")
-    var description: String,
+    val description: String,
     @SerializedName("title")
-    var title: String,
+    val title: String
 )

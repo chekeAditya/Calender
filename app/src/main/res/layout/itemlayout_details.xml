@@ -4,6 +4,10 @@
     <data>
         <variable
             name="task"
+            type="com.aditya.calender.remote.responses.createResponse.CreateResponse" />
+
+        <variable
+            name="taskdetails"
             type="com.aditya.calender.remote.responses.getResponse.Task" />
 
         <variable
@@ -25,14 +29,14 @@
             android:layout_margin="@dimen/dp_10">
 
             <TextView
-                android:id="@+id/tv_taskId"
+                android:id="@+id/taskidone"
                 android:visibility="gone"
                 style="@style/Text_ItemlayoutHeading"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/dp_5"
-                />
+                android:layout_marginEnd="@dimen/dp_5" />
 
             <TextView
+                android:text="@{taskdetails.date}"
                 android:id="@+id/tv_date"
                 style="@style/Text_ItemlayoutHeading"
                 android:layout_alignParentEnd="true"
@@ -52,6 +56,7 @@
 
                 <TextView
                     android:id="@+id/tvTitle"
+                    android:text="@{taskdetails.title}"
                     style="@style/Text_ItemlayoutHeading"
                     android:layout_marginStart="@dimen/dp_10" />
 
@@ -69,6 +74,7 @@
                     android:text="Description :-" />
 
                 <TextView
+                    android:text="@{taskdetails.description}"
                     android:textColor="@color/black"
                     android:id="@+id/tvDescription"
                     style="@style/Text_ItemlayoutHeading"

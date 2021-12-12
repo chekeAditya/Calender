@@ -1,6 +1,5 @@
 package com.aditya.calender.remote.interfaces
 
-import com.aditya.calender.remote.responses.createResponse.CreateTaskClass
 import com.aditya.calender.remote.responses.getResponse.GetTaskResponse
 import com.aditya.calender.remote.responses.getResponse.ResponseData
 import com.aditya.calender.remote.responses.getResponse.Task
@@ -21,7 +20,6 @@ interface APIClient {
         @Header("Authorization") token: String,
         @Body task: Task
     ): Task
-
 
     @Multipart
     @POST("deleteCalendarTask")

@@ -13,20 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aditya.calender.R
 import com.aditya.calender.databinding.FragmentEventBinding
 import com.aditya.calender.remote.Status
-import com.aditya.calender.remote.interfaces.OnCLickDelete
+import com.aditya.calender.remote.interfaces.OnDeleteClicked
 import com.aditya.calender.remote.responses.getResponse.Task
-import com.aditya.calender.ui.adapters.TasklistAdaptor
+import com.aditya.calender.ui.adapters.EventAdapter
 import com.aditya.calender.viewmodels.AppViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EventFragment : Fragment(), OnCLickDelete{
+class EventFragment : Fragment() ,OnDeleteClicked{
 
 
     private lateinit var fragmentEventBinding: FragmentEventBinding
     private val viewModel: AppViewModel by viewModels()
     private var taskModelList = emptyList<Task>()
-    private lateinit var adapter: TasklistAdaptor
+    private lateinit var adapter: EventAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,13 +76,13 @@ class EventFragment : Fragment(), OnCLickDelete{
     }
 
     private fun setRecycelrView() {
-        adapter = TasklistAdaptor(taskModelList,this)
+        adapter = EventAdapter(taskModelList,this)
         fragmentEventBinding.recyclerView.adapter = adapter
         fragmentEventBinding.recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    override fun DeleteClick(position: Int, taskid: Int) {
-        viewModel.deleteTaskFromAPI(taskid)
+    override fun onDelete(position: Int, task_id: Int) {
+        viewModel.deleteTaskFromAPI(task_id)
         loadApi()
     }
 
